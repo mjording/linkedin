@@ -1,6 +1,8 @@
 require 'helper'
 
 describe LinkedIn::Api do
+  use_vcr_cassette :record => :new_episodes
+  
   before do
     LinkedIn.default_profile_fields = nil
     client.stub(:consumer).and_return(consumer)
@@ -53,7 +55,7 @@ describe LinkedIn::Api do
   end
 
   context "Company API" do
-    use_vcr_cassette
+    use_vcr_cassette :record => :new_episodes
 
     it "should be able to view a company profile" do
       stub_request(:get, "https://api.linkedin.com/v1/companies/id=1586").to_return(:body => "{}")
